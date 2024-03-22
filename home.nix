@@ -110,6 +110,7 @@ in {
     ++
     # FIXME: you can add anything else that doesn't fit into the above two lists in here
     [
+      (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
       # pkgs.some-package
       # pkgs.unstable.some-other-package
     ];
@@ -126,17 +127,103 @@ in {
     # FIXME: disable this if you don't want to use the starship prompt
     starship.enable = true;
     starship.settings = {
+    format = "
+[](#9A348E)$os$username[](bg:#DA627D fg:#9A348E)$directory[](fg:#DA627D bg:#FCA17D)$git_branch$git_status[](fg:#FCA17D bg:#86BBD8)$c$gradle$java$nodejs$nim$rust[](fg:#86BBD8 bg:#06969A)$docker_context[](fg:#06969A bg:#33658A)$time[ ](fg:#33658A)";
       aws.disabled = true;
       gcloud.disabled = true;
-      kubernetes.disabled = false;
-      git_branch.style = "242";
-      directory.style = "blue";
-      directory.truncate_to_repo = false;
-      directory.truncation_length = 8;
+      kubernetes.disabled = true;
+      #git_branch.style = "242";
+      #directory.style = "blue";
+      #directory.truncate_to_repo = false;
+      #directory.truncation_length = 8;
       python.disabled = true;
       ruby.disabled = true;
       hostname.ssh_only = false;
       hostname.style = "bold green";
+     username = {
+    show_always = true;
+    style_user = "bg:#9A348E";
+    style_root = "bg:#9A348E";
+    format = "[$user ]($style)";
+    disabled = false;
+};
+os = {
+style = "bg:#9A348E";
+disabled = false;
+};
+
+directory = {
+    style = "bg:#DA627D";
+format = "[ $path ]($style)";
+truncation_length = 3;
+truncation_symbol = "…/";
+};
+
+directory.substitutions = {
+"Documents" = "󰈙 ";
+"Downloads" = " ";
+"Music" = " ";
+"Pictures" = " ";
+};
+
+c = {
+symbol = " ";
+style = "bg:#86BBD8";
+format = "[ $symbol ($version) ]($style)";
+};
+
+docker_context = {
+symbol = " ";
+style = "bg:#06969A";
+format = "[ $symbol $context ]($style)";
+};
+
+git_branch = {
+symbol = "";
+style = "bg:#FCA17D";
+format = "[ $symbol $branch ]($style)";
+};
+
+git_status = {
+style = "bg:#FCA17D";
+format = "[$all_status$ahead_behind ]($style)";
+};
+
+gradle = {
+style = "bg:#86BBD8";
+format = "[ $symbol ($version) ]($style)";
+};
+
+java = {
+symbol = " ";
+style = "bg:#86BBD8";
+format = "[ $symbol ($version) ]($style)";
+};
+
+nodejs = {
+symbol = "";
+style = "bg:#86BBD8";
+format = "[ $symbol ($version) ]($style)";
+};
+
+nim = {
+symbol = "󰆥 ";
+style = "bg:#86BBD8";
+format = "[ $symbol ($version) ]($style)";
+};
+
+rust = {
+symbol = "";
+style = "bg:#86BBD8";
+format = "[ $symbol ($version) ]($style)";
+};
+
+time = {
+disabled = false;
+time_format = "%R";
+style = "bg:#33658A";
+format = "[󰅐 $time ]($style)";
+};
     };
 
     # FIXME: disable whatever you don't want
@@ -162,8 +249,8 @@ in {
         side-by-side = true;
         navigate = true;
       };
-      userEmail = ""; # FIXME: set your git email
-      userName = ""; #FIXME: set your git username
+      userEmail = "anscarlett@gmail.com";
+      userName = "anscarlett";
       extraConfig = {
         # FIXME: uncomment the next lines if you want to be able to clone private https repos
         # url = {
@@ -193,7 +280,7 @@ in {
       autocd = true;
       enableAutosuggestions = true;
       enableCompletion = true;
-      defaultKeymap = "emacs";
+      defaultKeymap = "vicmd";
       history.size = 10000;
       history.save = 10000;
       history.expireDuplicatesFirst = true;
