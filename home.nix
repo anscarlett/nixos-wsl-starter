@@ -302,10 +302,10 @@ format = "[󰅐 $time ]($style)";
           };
         }
       ];
-
-      shellAliases = {
+shellAliases = {
         "..." = "./..";
         "...." = "././..";
+        ll = "ls-al";
         cd = "z";
         gc = "nix-collect-garbage --delete-old";
         refresh = "source ${config.home.homeDirectory}/.zshrc";
